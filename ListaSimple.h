@@ -2,13 +2,14 @@
 #define LISTASIMPLE_H
 
 #include <iostream>
+#include "nodoSimple.h"
 using namespace std;
 
 template <typename T>
 class ListaSimple {
 private:
-    Nodo<T>* primero;
-    Nodo<T>* ultimo;
+    NodoSimple<T>* primero;
+    NodoSimple<T>* ultimo;
 
 public:
     ListaSimple() {
@@ -18,39 +19,39 @@ public:
 
     // Insertar al inicio
     void insertarInicio(T dato) {
-        Nodo<T>* nuevo = new Nodo<T>(dato);
+        NodoSimple<T>* nuevo = new NodoSimple<T>(dato);
 
         if (primero == NULL) {
             primero = nuevo;
             ultimo = nuevo;
         } else {
-            nuevo->next = primero;
+            nuevo->sig = primero;
             primero = nuevo;
         }
     }
 
     // Insertar al final
     void insertarFinal(T dato) {
-        Nodo<T>* nuevo = new Nodo<T>(dato);
+        NodoSimple<T>* nuevo = new NodoSimple<T>(dato);
 
         if (primero == NULL) {
             primero = nuevo;
             ultimo = nuevo;
         } else {
-            ultimo->next = nuevo;
+            ultimo->sig = nuevo;
             ultimo = nuevo;
         }
     }
 
     // Buscar elemento
     bool buscar(T dato) {
-        Nodo<T>* aux = primero;
+        NodoSimple<T>* aux = primero;
 
         while (aux != NULL) {
             if (aux->info == dato) {
                 return true;
             }
-            aux = aux->next;
+            aux = aux->sig;
         }
         return false;
     }
@@ -59,23 +60,23 @@ public:
     void eliminar(T dato) {
         if (primero == NULL) return;
 
-        Nodo<T>* aux = primero;
-        Nodo<T>* anterior = NULL;
+        NodoSimple<T>* aux = primero;
+        NodoSimple<T>* anterior = NULL;
 
         while (aux != NULL && aux->info != dato) {
             anterior = aux;
-            aux = aux->next;
+            aux = aux->sig;
         }
 
         if (aux == NULL) return;
 
         if (aux == primero) {
-            primero = primero->next;
+            primero = primero->sig;
             if (primero == NULL) {
                 ultimo = NULL;
             }
         } else {
-            anterior->next = aux->next;
+            anterior->sig = aux->sig;
             if (aux == ultimo) {
                 ultimo = anterior;
             }
@@ -86,22 +87,22 @@ public:
 
     // Mostrar lista
     void mostrar() {
-        Nodo<T>* aux = primero;
+        NodoSimple<T>* aux = primero;
 
         while (aux != NULL) {
             cout << aux->info << " -> ";
-            aux = aux->next;
+            aux = aux->sig;
         }
         cout << "NULL" << endl;
     }
 
     // Consultar primero
-    T getPrimero() {
+    T obtenerPrimero() {
         return primero->info;
     }
 
     // Consultar ultimo
-    T getUltimo() {
+    T obtenerUltimo() {
         return ultimo->info;
     }
 };
