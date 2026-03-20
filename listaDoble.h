@@ -13,15 +13,19 @@ private:
     NodoDoble<T>* ultimo;
 
 public:
-    ListaDoble() {
-        primero = NULL;
-        ultimo = NULL;
+    // Constructor
+    ListaDoble() : primero(nullptr), ultimo(nullptr) {}
+
+    // Destructor para liberar memoria
+    ~ListaDoble() {
+        while (primero != nullptr) {
+            eliminar(primero->info);
+        }
     }
 
     void insertarInicio(T valor) {
         NodoDoble<T>* nuevo = new NodoDoble<T>(valor);
-
-        if (primero == NULL) {
+        if (primero == nullptr) {
             primero = ultimo = nuevo;
         } else {
             nuevo->sig = primero;
@@ -32,8 +36,7 @@ public:
 
     void insertarFinal(T valor) {
         NodoDoble<T>* nuevo = new NodoDoble<T>(valor);
-
-        if (primero == NULL) {
+        if (primero == nullptr) {
             primero = ultimo = nuevo;
         } else {
             ultimo->sig = nuevo;
@@ -44,25 +47,27 @@ public:
 
     void mostrarAdelante() {
         NodoDoble<T>* aux = primero;
-        while (aux != NULL) {
+        cout << "Lista (Adelante): ";
+        while (aux != nullptr) {
             cout << aux->info << " <-> ";
             aux = aux->sig;
         }
-        cout << "NULL" << endl;
+        cout << "nullptr" << endl;
     }
 
     void mostrarAtras() {
         NodoDoble<T>* aux = ultimo;
-        while (aux != NULL) {
+        cout << "Lista (Atrás): ";
+        while (aux != nullptr) {
             cout << aux->info << " <-> ";
             aux = aux->ant;
         }
-        cout << "NULL" << endl;
+        cout << "nullptr" << endl;
     }
 
     bool buscar(T valor) {
         NodoDoble<T>* aux = primero;
-        while (aux != NULL) {
+        while (aux != nullptr) {
             if (aux->info == valor) return true;
             aux = aux->sig;
         }
@@ -71,24 +76,23 @@ public:
 
     void eliminar(T valor) {
         NodoDoble<T>* aux = primero;
-
-        while (aux != NULL && aux->info != valor) {
+        while (aux != nullptr && aux->info != valor) {
             aux = aux->sig;
         }
 
-        if (aux == NULL) return;
+        if (aux == nullptr) return;
 
         if (aux == primero) {
             primero = aux->sig;
-            if (primero != NULL)
-                primero->ant = NULL;
+            if (primero != nullptr) primero->ant = nullptr;
         } else {
             aux->ant->sig = aux->sig;
         }
 
         if (aux == ultimo) {
             ultimo = aux->ant;
-        } else if (aux->sig != NULL) {
+            if (ultimo != nullptr) ultimo->sig = nullptr;
+        } else if (aux->sig != nullptr) {
             aux->sig->ant = aux->ant;
         }
 
@@ -96,11 +100,13 @@ public:
     }
 
     T obtenerPrimero() {
-        return primero->info;
+        if (primero != nullptr) return primero->info;
+        return T(); 
     }
 
     T obtenerUltimo() {
-        return ultimo->info;
+        if (ultimo != nullptr) return ultimo->info;
+        return T();
     }
 };
 
