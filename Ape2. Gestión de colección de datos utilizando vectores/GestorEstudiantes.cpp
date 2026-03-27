@@ -5,7 +5,7 @@
 #include <string>
 
 // ============================================================
-// Menú principal
+// Menú principal ...
 // ============================================================
 void GestorEstudiantes::ejecutar() {
     int opcion;
