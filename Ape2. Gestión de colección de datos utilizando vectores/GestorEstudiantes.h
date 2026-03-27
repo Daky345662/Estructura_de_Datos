@@ -30,7 +30,7 @@ private:
     // Opción 4: promedio del curso
     void promedioCurso();
 
-    // Utilidades
+    // Utilidades  -
     int  buscarPorCedula(const std::string& cedula);
     void mostrarDatosEstudiante(const Estudiante& e);
     int  pedirIndiceValido(const std::string& mensaje);
